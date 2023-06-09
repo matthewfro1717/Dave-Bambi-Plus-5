@@ -145,7 +145,7 @@ class PlayState extends MusicBeatState
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 
-	public static var darkLevels:Array<String> = ['bambiFarmNight', 'daveHouse_night', 'unfairness', 'bedroomNight', 'backyard',
+	public static var darkLevels:Array<String> = ['bambiFarmNight', 'daveHouse_night', 'unfairness', 'mastered' 'bedroomNight', 'backyard',
 	'scrappedbambiFarmNight', 'oldbambiFarmNight', 'bambiFarmNight2.5', 'daveHouse_night25'];
 	public var sunsetLevels:Array<String> = ['bambiFarmSunset', 'daveHouse_Sunset', 'oldbambiFarmSunset', 'scrappedbambiFarmSunset',
 	'bambiFarmSunset2.5'];
@@ -1995,13 +1995,31 @@ class PlayState extends MusicBeatState
 			        blue3d.animation.play('bganimationloop');
 				blue3d.visible = false;
 				add(blue3d);
+                                
+				if SONG.song.toLowerCase() == 'insanity-2.5' || localFunny == CharacterFunnyEffect.Recurser)
+				{
+					var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/void/redsky_insanity'), null, 1, 1, true, true);
+					bg.alpha = 0.75;
+					bg.visible = false;
+					add(bg);
+					// below code assumes shaders are always enabled which is bad
+					voidShader(bg);			
 					
-				var redbg:BGSprite = new BGSprite('bg', -275, -200, Paths.image('backgrounds/redbg'), null, 1, 1, true, true);
-				new Animation('bganimationloop', 'redbg', 5, true, [false, false]);
-			        redbg.animation.play('bganimationloop');
-				redbg.visible = false;
-				add(redbg);
-						
+					var redbg:BGSprite = new BGSprite('bg', -275, -200, Paths.image('backgrounds/redbg'), null, 1, 1, true, true);
+				        new Animation('bganimationloop', 'redbg', 5, true, [false, false]);
+			                redbg.animation.play('bganimationloop');
+				        redbg.visible = false;
+				        add(redbg);
+				}
+
+				var variantColor = getBackgroundColor(stageName);
+				if (stageName != 'mastered')
+				{
+					stageHills.color = variantColor;
+					grassbg.color = variantColor;
+					gate.color = variantColor;
+					stageFront.color = variantColor;
+				}
 
 			case 'inside-house':
 				bgZoom = 0.6;
@@ -2975,7 +2993,7 @@ class PlayState extends MusicBeatState
 		var variantColor:FlxColor = FlxColor.WHITE;
 		switch (stage)
 		{
-			case 'bambiFarmNight' | 'daveHouse_night' | 'daveHouse_night25' | 'backyard' | 'bedroomNight':
+			case 'bambiFarmNight' | 'daveHouse_night' | 'daveHouse_night25' | 'backyard' | 'bedroomNight' | 'mastered':
 				variantColor = nightColor;
 			case 'bambiFarmSunset' | 'daveHouse_sunset' | 'scrappedbambiFarmSunset' | 'oldbambiFarmSunset':
 				variantColor = sunsetColor;
