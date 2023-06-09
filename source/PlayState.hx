@@ -145,7 +145,7 @@ class PlayState extends MusicBeatState
 		['Perfect!!', 1] //The value on this one isn't used actually, since Perfect is always "1"
 	];
 
-	public static var darkLevels:Array<String> = ['bambiFarmNight', 'daveHouse_night', 'unfairness', 'mastered' 'bedroomNight', 'backyard',
+	public static var darkLevels:Array<String> = ['bambiFarmNight', 'daveHouse_night', 'unfairness', 'mastered', 'bedroomNight', 'backyard',
 	'scrappedbambiFarmNight', 'oldbambiFarmNight', 'bambiFarmNight2.5', 'daveHouse_night25'];
 	public var sunsetLevels:Array<String> = ['bambiFarmSunset', 'daveHouse_Sunset', 'oldbambiFarmSunset', 'scrappedbambiFarmSunset',
 	'bambiFarmSunset2.5'];
