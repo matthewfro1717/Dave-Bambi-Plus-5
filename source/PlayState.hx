@@ -1996,7 +1996,7 @@ class PlayState extends MusicBeatState
 				blue3d.visible = false;
 				add(blue3d);
                                 
-				if SONG.song.toLowerCase() == 'insanity-2.5' || localFunny == CharacterFunnyEffect.Recurser)
+				if (SONG.song.toLowerCase() == 'mastered' || localFunny == CharacterFunnyEffect.Recurser)
 				{
 					var bg:BGSprite = new BGSprite('bg', -600, -200, Paths.image('backgrounds/void/redsky_insanity'), null, 1, 1, true, true);
 					bg.alpha = 0.75;
