@@ -8077,21 +8077,21 @@ class PlayState extends MusicBeatState
 						remove(dad);
 						dad = new Character(dad.x, dad.y, curECCCharacter, false);
 						add(dad);
-						iconP2.changeIcon(curECCCharacter);*/
+						iconP2.changeIcon(curECCCharacter);
 					case 639 | 1152 | 1919:
 						blue3d.visible = false;
 						curECCCharacter = "dave-splitathon-mastered";
 						remove(dad);
 						dad = new Character(dad.x, dad.y, curECCCharacter, false);
 						add(dad);
-						iconP2.changeIcon(curECCCharacter);*/
+						iconP2.changeIcon(curECCCharacter);
 					case 1152:
 						redbg.visible = true;
 						curECCCharacter = "dave-scared-mastered";
 						remove(dad);
 						dad = new Character(dad.x, dad.y, curECCCharacter, false);
 						add(dad);
-						iconP2.changeIcon(curECCCharacter);*/
+						iconP2.changeIcon(curECCCharacter);
 					case 1176:
 						redbg.visible = false;
 						blue3d.visible = true;
@@ -8099,7 +8099,7 @@ class PlayState extends MusicBeatState
 						remove(dad);
 						dad = new Character(dad.x, dad.y, curECCCharacter, false);
 						add(dad);
-						iconP2.changeIcon(curECCCharacter);*/
+						iconP2.changeIcon(curECCCharacter);
 					case 2047:
 						if (misses > 0) {
 							dad.animation.play('damn', true);
