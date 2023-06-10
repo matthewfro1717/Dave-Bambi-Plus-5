@@ -3610,10 +3610,8 @@ class PlayState extends MusicBeatState
 							setOnLuas('gfName', gf.curCharacter);
 						}
 				}
-
-		if(!eventPushedMap.exists(event.event)) {
-			eventPushedMap.set(event.event, true);
 		}
+		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
 
 	public function triggerEventNote(eventName:String, value1:String, value2:String) {
