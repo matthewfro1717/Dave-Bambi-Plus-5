@@ -8176,29 +8176,6 @@ class PlayState extends MusicBeatState
 						updatevels = false;
 				}
 
-			case 'mastered':
-				switch (curStep)
-				{
-					case 384 | 895 | 1412:
-						blue3d.visible = true;
-					case 639 | 1152 | 1919:
-						blue3d.visible = false;
-					case 1152:
-						redbg.visible = true;
-					case 1176:
-						redbg.visible = false;
-					case 2047:
-						if (misses > 0) {
-							dad.animation.play('damn', true);
-						}
-						else if (misses > 20) {
-							dad.animation.play('bro', true);
-					        }
-						else if (botPlay) {
-							dad.animation.play('bro', true);
-					        }
-				}
-
 			case 'insanity' | 'insanity-2.5':
 				switch (curStep)
 				{
