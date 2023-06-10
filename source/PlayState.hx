@@ -3541,6 +3541,114 @@ class PlayState extends MusicBeatState
 		generatedMusic = true;
 	}
 
+	function eventPushed(event:EventNote) {
+		switch(event.event) {
+			case 'Change Character':
+				var charType:Int = 0;
+				switch(event.value1.toLowerCase()) {
+					case 'gf' | 'girlfriend' | '1':
+						charType = 2;
+					case 'dad' | 'opponent' | '0':
+						charType = 1;
+					default:
+						charType = Std.parseInt(event.value1);
+						if(Math.isNaN(charType)) charType = 0;
+				}
+
+				var newCharacter:String = event.value2;
+				addCharacterToList(newCharacter, charType);
+
+		if(!eventPushedMap.exists(event.event)) {
+			eventPushedMap.set(event.event, true);
+		}
+	}
+
+	public function triggerEventNote(eventName:String, value1:String, value2:String) {
+		switch(eventName) {
+			case 'Change Character':
+				var charType:Int = 0;
+				switch(value1.toLowerCase().trim()) {
+					case 'gf' | 'girlfriend':
+						charType = 2;
+					case 'dad' | 'opponent':
+						charType = 1;
+					default:
+						charType = Std.parseInt(value1);
+						if(Math.isNaN(charType)) charType = 0;
+				}
+
+				switch(charType) {
+					case 0:
+						if(boyfriend.curCharacter != value2) {
+							if(!boyfriendMap.exists(value2)) {
+								addCharacterToList(value2, charType);
+							}
+
+							var lastAlpha:Float = boyfriend.alpha;
+							boyfriend.alpha = 0.00001;
+							boyfriend = boyfriendMap.get(value2);
+							boyfriend.alpha = lastAlpha;
+							iconP1.changeIcon(boyfriend.healthIcon);
+						}
+						setOnLuas('boyfriendName', boyfriend.curCharacter);
+
+					case 1:
+						if(dad.curCharacter != value2) {
+							if(!dadMap.exists(value2)) {
+								addCharacterToList(value2, charType);
+							}
+
+							var wasGf:Bool = dad.curCharacter.startsWith('gf');
+							var lastAlpha:Float = dad.alpha;
+							dad.alpha = 0.00001;
+							dad = dadMap.get(value2);
+							if(!dad.curCharacter.startsWith('gf')) {
+								if(wasGf && gf != null) {
+									gf.visible = true;
+								}
+							} else if(gf != null) {
+								gf.visible = false;
+							}
+							dad.alpha = lastAlpha;
+							iconP2.changeIcon(dad.healthIcon);
+						}
+						setOnLuas('dadName', dad.curCharacter);
+
+					case 2:
+						if(gf != null)
+						{
+							if(gf.curCharacter != value2)
+							{
+								if(!gfMap.exists(value2))
+								{
+									addCharacterToList(value2, charType);
+								}
+
+								var lastAlpha:Float = gf.alpha;
+								gf.alpha = 0.00001;
+								gf = gfMap.get(value2);
+								gf.alpha = lastAlpha;
+							}
+							setOnLuas('gfName', gf.curCharacter);
+						}
+				}
+				reloadHealthBarColors();
+		}
+	}
+
+	function eventNoteEarlyTrigger(event:EventNote):Float {
+		var returnedValue:Null<Float> = callOnLuas('eventEarlyTrigger', [event.event, event.value1, event.value2, event.strumTime], [], [0]);
+		if(returnedValue != null && returnedValue != 0 && returnedValue != FunkinLua.Function_Continue) {
+			return returnedValue;
+		}
+
+		switch(event.event) {
+			case 'Kill Henchmen': //Better timing so that the kill sound matches the beat intended
+				return 280; //Plays 280ms before the actual position
+		}
+		return 0;
+	}
+
 	function sortByShit(Obj1:Note, Obj2:Note):Int
 	{
 		return FlxSort.byValues(FlxSort.ASCENDING, Obj1.strumTime, Obj2.strumTime);
@@ -8073,33 +8181,12 @@ class PlayState extends MusicBeatState
 				{
 					case 384 | 895 | 1412:
 						blue3d.visible = true;
-						curECCCharacter = "dave-3d-mastered";
-						remove(dad);
-						dad = new Character(dad.x, dad.y, curECCCharacter, false);
-						add(dad);
-						iconP2.changeIcon(curECCCharacter);
 					case 639 | 1152 | 1919:
 						blue3d.visible = false;
-						curECCCharacter = "dave-splitathon-mastered";
-						remove(dad);
-						dad = new Character(dad.x, dad.y, curECCCharacter, false);
-						add(dad);
-						iconP2.changeIcon(curECCCharacter);
 					case 1152:
 						redbg.visible = true;
-						curECCCharacter = "dave-scared-mastered";
-						remove(dad);
-						dad = new Character(dad.x, dad.y, curECCCharacter, false);
-						add(dad);
-						iconP2.changeIcon(curECCCharacter);
 					case 1176:
 						redbg.visible = false;
-						blue3d.visible = true;
-						curECCCharacter = "dave-3d-mastered";
-						remove(dad);
-						dad = new Character(dad.x, dad.y, curECCCharacter, false);
-						add(dad);
-						iconP2.changeIcon(curECCCharacter);
 					case 2047:
 						if (misses > 0) {
 							dad.animation.play('damn', true);
