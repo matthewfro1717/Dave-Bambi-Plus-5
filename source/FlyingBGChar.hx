@@ -3,6 +3,7 @@ package;
 import flixel.FlxSprite;
 import flixel.FlxG;
 import flixel.math.FlxRandom;
+import PlayState.getCamZoom
 
 class FlyingBGChar extends BGSprite
 {
