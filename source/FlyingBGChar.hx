@@ -37,8 +37,8 @@ class FlyingBGChar extends BGSprite
       var dirs = ['left', 'right'];
       direction = new FlxRandom().getObject(dirs);
 
-      leftPosCheck = (-width * (1 / PlayState.getCamZoom())) - posOffset;
-      rightPosCheck = (FlxG.width * (1 / PlayState.getCamZoom())) + width + posOffset;
+      leftPosCheck = (-width * (1 / PlayState.instance.getCamZoom())) - posOffset;
+      rightPosCheck = (FlxG.width * (1 / PlayState.instance.getCamZoom())) + width + posOffset;
       switch (direction)
       {
          case 'left':
